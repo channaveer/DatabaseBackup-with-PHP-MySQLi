@@ -13,30 +13,30 @@ error_reporting(E_ALL);
 $dbBackup	=	new DatabaseBackup();
 /* @Function Called - 	backupDatabase() 
  * @parameters		-	1st Param - Default : fetches all the tables
-									Specific Tables - array(table1,table2,table3...);
- *						2nd Param - If not specified then creates one where this script resides
+				Specific Tables - array(table1,table2,table3...);
+ *				2nd Param - If not specified then creates one where this script resides
  */
 $tables	=	'*';
 $dbBackup->backupDatabase($tables,'BackupLogs');
 
 class DatabaseBackup{
-	private $hostname			=	''; /* DB Hostname */
-	private $username			=	''; /* DB Username */
-	private $password			=	''; /* DB Password */
-	private $database			=	''; /* Database Name */
+	private $hostname		=	''; /* DB Hostname */
+	private $username		=	''; /* DB Username */
+	private $password		=	''; /* DB Password */
+	private $database		=	''; /* Database Name */
 	private $characterSet		=	'utf8'; /* DB Character Set */
 	private $backupDirectory	=	'BackupLogs'; /* Backup Directory */
 	
 	/* Mysqli Connection Handle */
-	private $link				=	'';
+	private $link			=	'';
 	
 	/* Class Constructor */
 	function __construct(){
 		/* Initialization of DB variables */
-		$this->hostname	=	'localhost';
-		$this->username	=	'root';
-		$this->password	=	'';
-		$this->database	=	'login';
+		$this->hostname		=	'localhost';
+		$this->username		=	'root';
+		$this->password		=	'';
+		$this->database		=	'login';
 		/* Call DB Initialization Function */
 		$this->initalizeDB();
 		
@@ -84,7 +84,7 @@ class DatabaseBackup{
 			$tableDetails	=	mysqli_query($this->link, "SELECT * FROM ".$table);
 			
 			/* Check the Number of Coloumns in the table */
-			$totalCols		=	mysqli_num_fields($tableDetails);
+			$totalCols	=	mysqli_num_fields($tableDetails);
 			
 			/* If the table exists then drop */
 			$sql		.=	"\n\nDROP TABLE IF EXISTS `".$table."`;\n";
@@ -134,14 +134,14 @@ class DatabaseBackup{
 		
 		if(!file_exists($backupDirectory)){
 			if(mkdir($backupDirectory)){
-				$filename		=	'log_'.$this->database.date('Y-m-d_H-i-s');
+				$filename	=	'log_'.$this->database.date('Y-m-d_H-i-s');
 				$fileHandler	=	fopen($backupDirectory.'/'.$filename.'.sql','w+');
 				fwrite($fileHandler,$sql);
 				fclose($fileHandler);
 				return true;
 			}
 		}else{
-			$filename		=	'log_'.$this->database.date('Y-m-d_H-i-s');
+			$filename	=	'log_'.$this->database.date('Y-m-d_H-i-s');
 			$fileHandler	=	fopen($backupDirectory.'/'.$filename.'.sql','w+');
 			fwrite($fileHandler,$sql);
 			fclose($fileHandler);
