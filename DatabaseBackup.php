@@ -1,9 +1,9 @@
 <?php
 /*
- * @Author		:   Channaveer Hakari
+ * @Author	:   Channaveer Hakari
  * @Email    	:   channaveer888@gmail.com
- * @Version		:	1.0
- * @Description	:	This Script is used to backup your complete database or partial tables backup
+ * @Version	:   1.0
+ * @Description	:   This Script is used to backup your complete database or partial tables backup
  */
 
 /* Error Reporting */
