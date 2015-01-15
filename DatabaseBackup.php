@@ -92,29 +92,29 @@ class DatabaseBackup{
 			$result1	=	mysqli_fetch_row(mysqli_query($this->link,'SHOW CREATE TABLE '.$table));
 			$sql		.=	$result1[1].";\n\n";
 			
-			//for($i=0; $i < $totalCols; $i++){
-				while($row = mysqli_fetch_row($tableDetails)){
-					$sql	.=	'INSERT INTO `'.$table.'` VALUES(';
-					for($j=0; $j<$totalCols; $j++){
-						$row[$j]	=	preg_replace("/\n/","\\n",addslashes($row[$j]));
-						if (isset($row[$j]))
-						{
-							$sql .= '"'.$row[$j].'"' ;
-						}
-						else
-						{
-							$sql.= '""';
-						}
-
-						if ($j < ($totalCols-1))
-						{
-							$sql .= ', ';
-						}
+			
+			while($row = mysqli_fetch_row($tableDetails)){
+				$sql	.=	'INSERT INTO `'.$table.'` VALUES(';
+				for($j=0; $j<$totalCols; $j++){
+					$row[$j]	=	preg_replace("/\n/","\\n",addslashes($row[$j]));
+					if (isset($row[$j]))
+					{
+						$sql .= '"'.$row[$j].'"' ;
 					}
-					$sql	.=	"); \n";
-					echo 'Completed <br/>';
+					else
+					{
+						$sql.= '""';
+					}
+
+					if ($j < ($totalCols-1))
+					{
+						$sql .= ', ';
+					}
 				}
-			//}
+				$sql	.=	"); \n";
+				echo 'Completed <br/>';
+			}
+			
 		}
 		/* If the 2nd parameter was not specified then default one will be passed */
 		$backupDirectory = ($backupDirectory == '') ? $this->backupDirectory : $backupDirectory;
