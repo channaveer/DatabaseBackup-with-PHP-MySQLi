@@ -112,9 +112,8 @@ class DatabaseBackup{
 					}
 				}
 				$sql	.=	"); \n";
-				echo 'Completed <br/>';
 			}
-			
+			echo 'Completed <br/>';
 		}
 		/* If the 2nd parameter was not specified then default one will be passed */
 		$backupDirectory = ($backupDirectory == '') ? $this->backupDirectory : $backupDirectory;
