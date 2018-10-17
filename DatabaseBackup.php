@@ -36,7 +36,7 @@ class DatabaseBackup{
 		$this->hostname		=	'localhost';
 		$this->username		=	'root';
 		$this->password		=	'';
-		$this->database		=	'login';
+		$this->database		=	'test_db';
 		/* Call DB Initialization Function */
 		$this->initalizeDB();
 		
@@ -71,7 +71,7 @@ class DatabaseBackup{
 			$tables	=	is_array($tables) ? $tables : explode(',',$tables);
 		}
 		/* Create the database */
-		$sql	=	'CREATE DATABASE IF NOT EXISTS `'.$this->database."`;\n";
+		$sql	=	'SET FOREIGN_KEY_CHECKS = 0;'."\n".'CREATE DATABASE IF NOT EXISTS `'.$this->database."`;\n";
 		/* Use the database */
 		$sql	.=	'USE `'.$this->database.'`;';
 		
@@ -115,6 +115,7 @@ class DatabaseBackup{
 			}
 			echo 'Completed <br/>';
 		}
+		$sql .= 'SET FOREIGN_KEY_CHECKS = 1;';
 		/* If the 2nd parameter was not specified then default one will be passed */
 		$backupDirectory = ($backupDirectory == '') ? $this->backupDirectory : $backupDirectory;
 		if($this->logDatabase($sql,$backupDirectory)){
